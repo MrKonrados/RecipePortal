@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace RecipePortal.Models
 {
@@ -8,6 +9,8 @@ namespace RecipePortal.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Recipe> Recipes { get; set; }
 
         public static ApplicationDbContext Create()
         {
