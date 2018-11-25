@@ -13,6 +13,12 @@ namespace RecipePortal.Controllers
             _context = new ApplicationDbContext();
         }
 
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Recipe
         public ActionResult Create()
         {
