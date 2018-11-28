@@ -1,6 +1,7 @@
 ﻿using RecipePortal.Models;
 using RecipePortal.ViewModels;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +19,8 @@ namespace RecipePortal.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var recipes = _context.Recipes.ToList();
+            return View(recipes);
         }
 
         // GET: Recipe
