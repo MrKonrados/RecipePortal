@@ -1,5 +1,7 @@
 ﻿using RecipePortal.Models;
 using RecipePortal.ViewModels;
+using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RecipePortal.Controllers
@@ -27,7 +29,7 @@ namespace RecipePortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RecipeViewModel viewModel)
+        public ActionResult Create(RecipeViewModel viewModel, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
@@ -39,6 +41,24 @@ namespace RecipePortal.Controllers
                 Name = viewModel.Name,
                 Directions = viewModel.Directions
             };
+
+
+            if (file != null)
+            {
+                var uploadDir = GlobalVariables.UploadDir;
+                var fin = System.IO.Path.GetFileName(file.FileName);
+                var path = System.IO.Path.Combine(Server.MapPath(uploadDir), fin);
+                try
+                {
+                    file.SaveAs(path);
+                }
+                catch (Exception e)
+                {
+                    //todo: Pass error massage to view
+                    return View();
+                }
+                recipe.ImagePath = path;
+            }
 
             _context.Recipes.Add(recipe);
             _context.SaveChanges();
