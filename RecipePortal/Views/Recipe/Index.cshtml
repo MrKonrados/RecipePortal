@@ -7,7 +7,14 @@
     {
         <div class="col-sm-4 col-md-3">
             <div class="thumbnail">
-                <img src="https://via.placeholder.com/250" alt="@recipe.Name">
+                @if (recipe.ImageFilename != null)
+                {
+                    <img src="@Url.Content(GlobalVariables.UploadDir+recipe.ImageFilename)" alt="@recipe.Name">
+                }
+                else
+                {
+                    <img src="https://via.placeholder.com/250" alt="@recipe.Name">
+                }
                 <div class="caption">
                     <h3>@recipe.Name</h3>
                     <p>@recipe.Directions</p>

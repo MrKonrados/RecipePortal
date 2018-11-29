@@ -12,7 +12,7 @@ namespace RecipePortal.Models
 
         public string Directions { get; set; }
 
-        [StringLength(1024)]
-        public string ImagePath { get; set; }
+        [StringLength(255)]
+        public string ImageFilename { get; set; }
     }
 }

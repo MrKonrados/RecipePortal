@@ -19,7 +19,9 @@ namespace RecipePortal.Controllers
 
         public ActionResult Index()
         {
+
             var recipes = _context.Recipes.ToList();
+
             return View(recipes);
         }
 
@@ -59,7 +61,7 @@ namespace RecipePortal.Controllers
                     //todo: Pass error massage to view
                     return View();
                 }
-                recipe.ImagePath = path;
+                recipe.ImageFilename = fin;
             }
 
             _context.Recipes.Add(recipe);
@@ -67,6 +69,7 @@ namespace RecipePortal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
 
     }
 }

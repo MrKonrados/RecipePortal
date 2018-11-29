@@ -10,5 +10,8 @@ namespace RecipePortal.ViewModels
 
         [Required]
         public string Directions { get; set; }
+
+        public string ImagePath { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

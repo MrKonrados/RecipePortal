@@ -178,6 +178,10 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs" />
+    <Compile Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.Designer.cs">
+      <DependentUpon>201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -296,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811251712499_AddRecipeModel.resx">
       <DependentUpon>201811251712499_AddRecipeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.resx">
+      <DependentUpon>201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
