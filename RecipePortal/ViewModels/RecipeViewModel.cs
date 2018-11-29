@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace RecipePortal.ViewModels
 {
@@ -11,7 +12,6 @@ namespace RecipePortal.ViewModels
         [Required]
         public string Directions { get; set; }
 
-        public string ImagePath { get; set; }
-        public string ImageUrl { get; set; }
+        public HttpPostedFileBase file { get; set; }
     }
 }

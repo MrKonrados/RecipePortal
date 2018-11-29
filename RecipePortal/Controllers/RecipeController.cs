@@ -2,7 +2,6 @@
 using RecipePortal.ViewModels;
 using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace RecipePortal.Controllers
@@ -19,9 +18,7 @@ namespace RecipePortal.Controllers
 
         public ActionResult Index()
         {
-
             var recipes = _context.Recipes.ToList();
-
             return View(recipes);
         }
 
@@ -33,7 +30,7 @@ namespace RecipePortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RecipeViewModel viewModel, HttpPostedFileBase file)
+        public ActionResult Create(RecipeViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -47,8 +44,9 @@ namespace RecipePortal.Controllers
             };
 
 
-            if (file != null)
+            if (viewModel.file != null)
             {
+                var file = viewModel.file;
                 var uploadDir = GlobalVariables.UploadDir;
                 var fin = System.IO.Path.GetFileName(file.FileName);
                 var path = System.IO.Path.Combine(Server.MapPath(uploadDir), fin);
@@ -69,7 +67,5 @@ namespace RecipePortal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-
     }
 }
