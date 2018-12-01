@@ -67,5 +67,21 @@ namespace RecipePortal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound("Id should not be empty!");
+            }
+
+            var recipe = _context.Recipes.Find(id);
+            if (recipe == null)
+            {
+                return HttpNotFound("Recipe not exist in DB");
+            }
+
+            return View(recipe);
+        }
     }
 }
