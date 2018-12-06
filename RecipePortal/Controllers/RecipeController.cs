@@ -25,7 +25,8 @@ namespace RecipePortal.Controllers
         // GET: Recipe
         public ActionResult Create()
         {
-            return View();
+            var recipe = new RecipeViewModel();
+            return View(recipe);
         }
 
         [HttpPost]
@@ -40,16 +41,18 @@ namespace RecipePortal.Controllers
             var recipe = new Recipe()
             {
                 Name = viewModel.Name,
-                Directions = viewModel.Directions
+                Directions = viewModel.Directions,
+                Ingredients = viewModel.Ingredients
             };
 
 
-            if (viewModel.file != null)
+            if (viewModel.File != null)
             {
-                var file = viewModel.file;
+                var file = viewModel.File;
                 var uploadDir = GlobalVariables.UploadDir;
                 var fin = System.IO.Path.GetFileName(file.FileName);
                 var path = System.IO.Path.Combine(Server.MapPath(uploadDir), fin);
+
                 try
                 {
                     file.SaveAs(path);
@@ -82,6 +85,12 @@ namespace RecipePortal.Controllers
             }
 
             return View(recipe);
+        }
+
+        public ActionResult AddIngredient()
+        {
+            var ingredient = new Ingredient();
+            return PartialView("_Ingredient", ingredient);
         }
     }
 }

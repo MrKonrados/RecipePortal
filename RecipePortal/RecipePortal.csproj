@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -182,6 +185,19 @@
     <Compile Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.Designer.cs">
       <DependentUpon>201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812051722104_AddIngredientModel.cs" />
+    <Compile Include="Migrations\201812051722104_AddIngredientModel.Designer.cs">
+      <DependentUpon>201812051722104_AddIngredientModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812051747508_RenameIngrediantToIngredient.cs" />
+    <Compile Include="Migrations\201812051747508_RenameIngrediantToIngredient.Designer.cs">
+      <DependentUpon>201812051747508_RenameIngrediantToIngredient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812061655185_AddStrLenghtForIngredientModel.cs" />
+    <Compile Include="Migrations\201812061655185_AddStrLenghtForIngredientModel.Designer.cs">
+      <DependentUpon>201812061655185_AddStrLenghtForIngredientModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ingredient.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -277,6 +293,8 @@
     <Content Include="Views\Recipe\Create.cshtml" />
     <Content Include="Views\Recipe\Index.cshtml" />
     <Content Include="Views\Recipe\Detail.cshtml" />
+    <Content Include="Views\Recipe\_Ingredient.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -304,6 +322,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.resx">
       <DependentUpon>201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812051722104_AddIngredientModel.resx">
+      <DependentUpon>201812051722104_AddIngredientModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812051747508_RenameIngrediantToIngredient.resx">
+      <DependentUpon>201812051747508_RenameIngrediantToIngredient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812061655185_AddStrLenghtForIngredientModel.resx">
+      <DependentUpon>201812061655185_AddStrLenghtForIngredientModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

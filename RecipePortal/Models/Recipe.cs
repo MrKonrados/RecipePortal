@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecipePortal.Models
 {
@@ -14,5 +15,8 @@ namespace RecipePortal.Models
 
         [StringLength(255)]
         public string ImageFilename { get; set; }
+
+        [Required]
+        public ICollection<Ingredient> Ingredients { get; set; }
     }
 }

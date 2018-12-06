@@ -1,0 +1,9 @@
+﻿@model RecipePortal.Models.Ingredient
+
+<div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+    @using (Html.BeginCollectionItem("ingredients"))
+    {
+        @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.Name, "", new { @class = "text-danger" })
+    }
+</div>
