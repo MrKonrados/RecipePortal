@@ -1,9 +1,14 @@
 ﻿@model RecipePortal.Models.Ingredient
-
-<div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+<div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "") js-ingredient">
     @using (Html.BeginCollectionItem("ingredients"))
     {
-        @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+        <div class=" input-group">
+            @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default js-delete">remove</button>
+            </span>
+        </div>
         @Html.ValidationMessageFor(i => i.Name, "", new { @class = "text-danger" })
     }
 </div>
+
