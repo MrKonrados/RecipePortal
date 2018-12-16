@@ -17,5 +17,6 @@ namespace RecipePortal.ViewModels
         public ICollection<Ingredient> Ingredients { get; set; }
 
         public HttpPostedFileBase File { get; set; }
+
     }
 }

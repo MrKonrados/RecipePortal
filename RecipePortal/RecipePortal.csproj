@@ -292,9 +292,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Recipe\Create.cshtml" />
     <Content Include="Views\Recipe\Index.cshtml" />
-    <Content Include="Views\Recipe\Detail.cshtml" />
     <Content Include="Views\Recipe\_Ingredient.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Recipe\Detail.cshtml" />
+    <Content Include="Views\Recipe\_IngredientList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

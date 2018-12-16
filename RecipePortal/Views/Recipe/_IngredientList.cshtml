@@ -1,0 +1,7 @@
+﻿@model ICollection<RecipePortal.Models.Ingredient>
+<ul class="list-unstyled row">
+    @foreach (var ingredient in Model)
+    {
+        <li class="col-sm-6"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> @ingredient.Name</li>
+    }
+</ul>

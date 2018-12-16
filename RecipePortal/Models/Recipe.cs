@@ -17,6 +17,6 @@ namespace RecipePortal.Models
         public string ImageFilename { get; set; }
 
         [Required]
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
     }
 }

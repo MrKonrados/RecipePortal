@@ -71,26 +71,31 @@ namespace RecipePortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Detail(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound("Id should not be empty!");
-            }
-
-            var recipe = _context.Recipes.Find(id);
-            if (recipe == null)
-            {
-                return HttpNotFound("Recipe not exist in DB");
-            }
-
-            return View(recipe);
-        }
-
         public ActionResult AddIngredient()
         {
             var ingredient = new Ingredient();
             return PartialView("_Ingredient", ingredient);
+        }
+
+        public ActionResult Detail(int id = 0)
+        {
+            var recipe = _context.Recipes.SingleOrDefault<Recipe>(r => r.Id == id);
+            if (recipe == null)
+            {
+                return HttpNotFound();
+            }
+
+            var ingredients = _context.Ingredients.Where(ing => ing.RecipeId == id).ToList();
+
+            var viewModel = new RecipeViewModel
+            {
+                Directions = recipe.Directions,
+                Name = recipe.Name,
+                Ingredients = ingredients,
+                //TODO: Display reciple image                
+            };
+
+            return View(viewModel);
         }
     }
 }
