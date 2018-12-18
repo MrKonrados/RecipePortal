@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecipePortal.Models
 {
@@ -10,6 +11,8 @@ namespace RecipePortal.Models
         public string Name { get; set; }
 
         public int RecipeId { get; set; }
-        public Recipe Recipe { get; set; }
+
+        [ForeignKey(nameof(RecipeId))]
+        public virtual Recipe Recipe { get; set; }
     }
 }

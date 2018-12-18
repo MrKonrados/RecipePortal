@@ -1,6 +1,7 @@
 ﻿using RecipePortal.Models;
 using RecipePortal.ViewModels;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -31,7 +32,7 @@ namespace RecipePortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RecipeViewModel viewModel)
+        public ActionResult Create(CreateRecipeViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -60,7 +61,7 @@ namespace RecipePortal.Controllers
                 catch (Exception e)
                 {
                     //todo: Pass error massage to view
-                    return View();
+                    return Content(e.ToString());
                 }
                 recipe.ImageFilename = fin;
             }
@@ -79,22 +80,20 @@ namespace RecipePortal.Controllers
 
         public ActionResult Detail(int id = 0)
         {
-            var recipe = _context.Recipes.SingleOrDefault<Recipe>(r => r.Id == id);
+            var recipe = _context.Recipes.Include(x => x.Ingredients).SingleOrDefault<Recipe>(r => r.Id == id);
             if (recipe == null)
             {
                 return HttpNotFound();
             }
 
-            var ingredients = _context.Ingredients.Where(ing => ing.RecipeId == id).ToList();
-
             var viewModel = new RecipeViewModel
             {
                 Directions = recipe.Directions,
                 Name = recipe.Name,
-                Ingredients = ingredients,
+                Ingredients = recipe.Ingredients,
+                ImageFilename = recipe.ImageFilename
                 //TODO: Display reciple image                
             };
-
             return View(viewModel);
         }
     }

@@ -197,7 +197,12 @@
     <Compile Include="Migrations\201812061655185_AddStrLenghtForIngredientModel.Designer.cs">
       <DependentUpon>201812061655185_AddStrLenghtForIngredientModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812172001296_AddRecipePropertyInIngredientModel.cs" />
+    <Compile Include="Migrations\201812172001296_AddRecipePropertyInIngredientModel.Designer.cs">
+      <DependentUpon>201812172001296_AddRecipePropertyInIngredientModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="ViewModels\CreateRecipeViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -332,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812061655185_AddStrLenghtForIngredientModel.resx">
       <DependentUpon>201812061655185_AddStrLenghtForIngredientModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812172001296_AddRecipePropertyInIngredientModel.resx">
+      <DependentUpon>201812172001296_AddRecipePropertyInIngredientModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
