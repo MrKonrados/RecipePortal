@@ -28,7 +28,6 @@ namespace RecipePortal.Controllers
         {
             var recipe = new CreateRecipeViewModel();
             return View(recipe);
-            //            return View();
         }
 
         [HttpPost]
@@ -37,7 +36,7 @@ namespace RecipePortal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(viewModel);
             }
 
             var recipe = new Recipe()

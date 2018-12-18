@@ -11,7 +11,10 @@ namespace RecipePortal.Models
         [StringLength(255)]
         public string Name { get; set; }
 
+        [Required]
         public string AboutDish { get; set; }
+
+        [Required]
         public string Directions { get; set; }
 
         [StringLength(255)]
