@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201812172001296_AddRecipePropertyInIngredientModel.Designer.cs">
       <DependentUpon>201812172001296_AddRecipePropertyInIngredientModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812181719126_AddAboutDishInRecipeModel.cs" />
+    <Compile Include="Migrations\201812181719126_AddAboutDishInRecipeModel.Designer.cs">
+      <DependentUpon>201812181719126_AddAboutDishInRecipeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="ViewModels\CreateRecipeViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
@@ -340,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812172001296_AddRecipePropertyInIngredientModel.resx">
       <DependentUpon>201812172001296_AddRecipePropertyInIngredientModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812181719126_AddAboutDishInRecipeModel.resx">
+      <DependentUpon>201812181719126_AddAboutDishInRecipeModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

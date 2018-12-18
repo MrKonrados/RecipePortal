@@ -14,7 +14,7 @@
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
         </div>
-        <p>Lorem ipsum dolor sit amet, oratio facilis eligendi vis ad, vide eruditi nam ex. Mel tincidunt sadipscing an, stet numquam ea his, ei ius mutat congue. Ne his mutat posse mediocrem, ut constituto dissentias quo, ne fugit legere pro. Nec in vero clita, ex sit duis iriure laboramus. Te zril laboramus efficiantur sea, quas augue sonet eum id. In graece legimus vix, maiorum delicata sententiae ad vix, qui ex possit debitis percipitur.</p>
+        <p>@Model.AboutDish</p>
     </div>
     <div class="col-md-7">
         <img class="img-responsive" src="@Url.Content(GlobalVariables.UploadDir+Model.ImageFilename)" alt="Recipe Title" />
@@ -25,8 +25,11 @@
     <div class="col-md-8">
         <h2>Ingredients</h2><hr />
         @Html.Partial("_IngredientList", Model.Ingredients)
+        <h2>Directions</h2><hr />
+        @Model.Directions
     </div>
     <div class="col-md-4">
         <h2>Recent recipes</h2><hr />
     </div>
 </div>
+

@@ -26,8 +26,9 @@ namespace RecipePortal.Controllers
         // GET: Recipe
         public ActionResult Create()
         {
-            var recipe = new RecipeViewModel();
+            var recipe = new CreateRecipeViewModel();
             return View(recipe);
+            //            return View();
         }
 
         [HttpPost]
@@ -42,8 +43,9 @@ namespace RecipePortal.Controllers
             var recipe = new Recipe()
             {
                 Name = viewModel.Name,
-                Directions = viewModel.Directions,
-                Ingredients = viewModel.Ingredients
+                AboutDish = viewModel.AboutDish,
+                Ingredients = viewModel.Ingredients,
+                Directions = viewModel.Directions
             };
 
 
@@ -88,11 +90,11 @@ namespace RecipePortal.Controllers
 
             var viewModel = new RecipeViewModel
             {
-                Directions = recipe.Directions,
+                Directions = recipe.AboutDish,
                 Name = recipe.Name,
+                AboutDish = recipe.AboutDish,
                 Ingredients = recipe.Ingredients,
                 ImageFilename = recipe.ImageFilename
-                //TODO: Display reciple image                
             };
             return View(viewModel);
         }

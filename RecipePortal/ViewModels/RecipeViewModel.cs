@@ -11,6 +11,9 @@ namespace RecipePortal.ViewModels
         public string Name { get; set; }
 
         [Required]
+        public string AboutDish { get; set; }
+
+        [Required]
         public string Directions { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; }

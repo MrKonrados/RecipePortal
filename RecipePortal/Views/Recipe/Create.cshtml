@@ -1,60 +1,64 @@
 ﻿@using System.Web.Mvc
 @using Antlr.Runtime.Tree
 @using RecipePortal.ViewModels
-@model RecipePortal.ViewModels.RecipeViewModel
-<h2>New Recipe</h2>
-<div class="row">
-    <div class="col-sm-4">
-        @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "Please check errors", new { @class = "alert alert-danger", @role = "alert" })
+@model RecipePortal.ViewModels.CreateRecipeViewModel
+    <h2>New Recipe</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "Please check errors", new { @class = "alert alert-danger", @role = "alert" })
 
-            <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
-                @Html.LabelFor(r => r.Name, new { @class = "control-label" })
-                @Html.TextBoxFor(r => r.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(r => r.Name, "", new { @class = "text-danger" })
-            </div>
+                <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+                    @Html.LabelFor(r => r.Name, new { @class = "control-label" })
+                    @Html.TextBoxFor(r => r.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(r => r.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+                    @Html.LabelFor(r => r.AboutDish, new { @class = "control-label" })
+                    @Html.TextAreaFor(r => r.AboutDish, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(r => r.AboutDish, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+                    @Html.Label("Upload File", new { @class = "control-label" })
+                    <input type="file" name="File" required />
+                    @Html.ValidationMessageFor(r => r.File, "", new { @class = "text-danger" })
+                </div>
 
 
-
-            <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
-                @Html.Label("Upload File", new { @class = "control-label" })
-                <input type="file" name="File" required />
-                @Html.ValidationMessageFor(r => r.File, "", new { @class = "text-danger" })
-            </div>
-
-
-            <div id="ingredients">
-                @Html.Label("Ingredients:")
-                @if (Model.Ingredients != null)
-                {
-                    foreach (var ingredient in Model.Ingredients)
+                <div id="ingredients">
+                    @Html.Label("Ingredients:")
+                    @if (Model.Ingredients != null)
                     {
-                        @Html.Partial("_Ingredient", ingredient)
+                        foreach (var ingredient in Model.Ingredients)
+                        {
+                            @Html.Partial("_Ingredient", ingredient)
+                        }
                     }
-                }
-                else
-                {
-                    @Html.Partial("_Ingredient", new RecipePortal.Models.Ingredient())
-                }
-            </div>
+                    else
+                    {
+                        @Html.Partial("_Ingredient", new RecipePortal.Models.Ingredient())
+                    }
+                </div>
 
-            <div class="form-group">
-                <a class="btn btn-default btn-xs" id="js-addIngredient">Add ingredient</a>
-            </div>
+                <div class="form-group">
+                    <a class="btn btn-default btn-xs" id="js-addIngredient">Add ingredient</a>
+                </div>
 
-            <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
-                @Html.LabelFor(r => r.Directions, new { @class = "control-label" })
-                @Html.TextAreaFor(r => r.Directions, new { @class = "form-control" })
-                @Html.ValidationMessageFor(r => r.Directions, "", new { @class = "text-danger" })
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        }
+                <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
+                    @Html.LabelFor(r => r.Directions, new { @class = "control-label" })
+                    @Html.TextAreaFor(r => r.Directions, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(r => r.Directions, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            }
+        </div>
     </div>
-</div>
-@section scripts {
-    <script type="text/javascript">
+    @section scripts {
+        <script type="text/javascript">
         var ingredients = '#ingredients';
         var url = '@Url.Action("AddIngredient", "Recipe")';
         $("#js-addIngredient").on('click',
@@ -70,5 +74,5 @@
                     $(this).closest('.js-ingredient').remove();
                 });
             });
-    </script>
-}
+        </script>
+    }
