@@ -138,6 +138,11 @@ namespace RecipePortal.Controllers
                 .Include(r => r.Ingredients)
                 .SingleOrDefault();
 
+            if (existingRecipe == null)
+            {
+                return HttpNotFound();
+            }
+
             if (viewModel.File != null)
             {
                 var file = viewModel.File;
