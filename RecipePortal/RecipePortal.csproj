@@ -210,7 +210,8 @@
       <DependentUpon>201812181837477_AddReqDirectivesInRecipeModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Ingredient.cs" />
-    <Compile Include="ViewModels\CreateRecipeViewModel.cs" />
+    <Compile Include="ViewModels\RecipeCreateViewModel.cs" />
+    <Compile Include="ViewModels\RecipeEditViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -309,6 +310,7 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Recipe\Detail.cshtml" />
     <Content Include="Views\Recipe\_IngredientList.cshtml" />
+    <Content Include="Views\Recipe\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

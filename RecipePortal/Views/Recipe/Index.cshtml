@@ -17,7 +17,8 @@
                 }
                 <div class="caption">
                     <h3>@recipe.Name</h3>
-                    <p>@recipe.AboutDish.Substring(0, 255)...</p>
+                    @* <p>@recipe.AboutDish.Substring(0, 255)...</p> *@
+                    <p>@recipe.AboutDish...</p>
                     @Html.ActionLink("See more", "Detail", "Recipe", new { recipe.Id }, new { @class = "btn btn-primary" })
                 </div>
             </div>

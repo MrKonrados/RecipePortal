@@ -3,7 +3,7 @@ using System.Web;
 
 namespace RecipePortal.ViewModels
 {
-    public class CreateRecipeViewModel : RecipeViewModel
+    public class RecipeCreateViewModel : RecipeViewModel
     {
         [Required]
         public HttpPostedFileBase File { get; set; }

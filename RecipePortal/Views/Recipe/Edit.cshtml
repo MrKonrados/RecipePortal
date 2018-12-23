@@ -1,11 +1,13 @@
-﻿@model RecipePortal.ViewModels.RecipeCreateViewModel
-<h2>New Recipe</h2>
+﻿@model RecipePortal.ViewModels.RecipeEditViewModel
+<h2>Edit Recipe</h2>
 <div class="row">
     <div class="col-sm-4">
-        @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "Please check errors", new { @class = "alert alert-danger", @role = "alert" })
+
+            @Html.HiddenFor(r => r.Id)
 
             <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
                 @Html.LabelFor(r => r.Name, new { @class = "control-label" })
@@ -25,7 +27,6 @@
                 @Html.ValidationMessageFor(r => r.File, "", new { @class = "text-danger" })
             </div>
 
-
             <div id="ingredients">
                 @Html.Label("Ingredients:")
                 @if (Model.Ingredients != null)
@@ -42,7 +43,7 @@
             </div>
 
             <div class="form-group">
-                <a class="btn btn-default btn-xs" id="js-addIngredient">Add ingredient</a>
+                <a class="btn btn-default btn-sm" id="js-addIngredient">Add ingredient</a>
             </div>
 
             <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
@@ -50,6 +51,9 @@
                 @Html.TextAreaFor(r => r.Directions, new { @class = "form-control" })
                 @Html.ValidationMessageFor(r => r.Directions, "", new { @class = "text-danger" })
             </div>
+
+            @Html.ValidationSummary(true, "Please check errors", new { @class = "alert alert-danger", @role = "alert" })
+
             <button type="submit" class="btn btn-default">Submit</button>
         }
     </div>
