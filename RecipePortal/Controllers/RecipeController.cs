@@ -3,6 +3,7 @@ using RecipePortal.ViewModels;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace RecipePortal.Controllers
@@ -197,6 +198,38 @@ namespace RecipePortal.Controllers
                 }
                 _context.SaveChanges();
             }
+            return RedirectToAction("Index");
+        }
+
+        // GET: Recipe/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var recipe = _context.Recipes.Find(id);
+            if (recipe == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(recipe);
+        }
+
+        // POST: Recipe/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var recipe = _context.Recipes.Find(id);
+            if (recipe == null)
+            {
+                return HttpNotFound();
+            }
+            _context.Recipes.Remove(recipe);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }
