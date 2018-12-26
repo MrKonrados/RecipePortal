@@ -209,7 +209,12 @@
     <Compile Include="Migrations\201812181837477_AddReqDirectivesInRecipeModel.Designer.cs">
       <DependentUpon>201812181837477_AddReqDirectivesInRecipeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812261807223_CreateRatingModel.cs" />
+    <Compile Include="Migrations\201812261807223_CreateRatingModel.Designer.cs">
+      <DependentUpon>201812261807223_CreateRatingModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="ViewModels\RecipeCreateViewModel.cs" />
     <Compile Include="ViewModels\RecipeEditViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
@@ -357,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812181837477_AddReqDirectivesInRecipeModel.resx">
       <DependentUpon>201812181837477_AddReqDirectivesInRecipeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261807223_CreateRatingModel.resx">
+      <DependentUpon>201812261807223_CreateRatingModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

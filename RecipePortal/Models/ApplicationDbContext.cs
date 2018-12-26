@@ -12,6 +12,7 @@ namespace RecipePortal.Models
 
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         public static ApplicationDbContext Create()
         {

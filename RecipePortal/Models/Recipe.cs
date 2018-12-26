@@ -22,5 +22,7 @@ namespace RecipePortal.Models
 
         [Required]
         public virtual ICollection<Ingredient> Ingredients { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

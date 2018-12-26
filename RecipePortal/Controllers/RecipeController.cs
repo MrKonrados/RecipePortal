@@ -92,6 +92,7 @@ namespace RecipePortal.Controllers
 
             var viewModel = new RecipeViewModel
             {
+                Id = recipe.Id,
                 Directions = recipe.AboutDish,
                 Name = recipe.Name,
                 AboutDish = recipe.AboutDish,
@@ -231,6 +232,23 @@ namespace RecipePortal.Controllers
             _context.Recipes.Remove(recipe);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult RateRecipe(string star, string recipeId)
+        {
+            var rating_arr = star.Split('-');
+
+            var newRating = new Rating()
+            {
+                RecipeId = Int32.Parse(recipeId),
+                Score = Int32.Parse(rating_arr[1])
+            };
+
+            _context.Ratings.Add(newRating);
+            _context.SaveChanges();
+
+            return new EmptyResult();
         }
     }
 }
