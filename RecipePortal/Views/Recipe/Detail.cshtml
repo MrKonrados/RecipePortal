@@ -52,7 +52,6 @@
         $(".stars input:radio").on("click", function () {
             var $rating = $(this).prop('id');
             var $recipeId = @Model.Id;
-            console.log($rating);
             $.ajax({
                 url: '@Url.Action("RateRecipe")',
                 type: 'POST',
@@ -61,9 +60,7 @@
                     star: $rating,
                     recipeId: $recipeId
                 }
-            })
-                .done(console.log("Zagłosowano"))
-                .failed(console.log("Coś poszło nie tak"));
+            });
         });
     </script>
 }

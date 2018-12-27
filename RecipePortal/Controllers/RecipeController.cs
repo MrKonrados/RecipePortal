@@ -91,9 +91,14 @@ namespace RecipePortal.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.AverageRating = (from rating in recipe.Ratings
-                                     select rating.Score)
-                                    .Average();
+            var averageRating = 0.0;
+
+            if (recipe.Ratings.Any())
+                averageRating = (from rating in recipe.Ratings
+                                 select rating.Score)
+                                .Average();
+
+            @ViewBag.AverageRating = decimal.Round((decimal)averageRating, 2);
 
             var viewModel = new RecipeViewModel
             {
@@ -253,7 +258,7 @@ namespace RecipePortal.Controllers
             _context.Ratings.Add(newRating);
             _context.SaveChanges();
 
-            return new EmptyResult();
+            return View("Detail");
         }
     }
 }
