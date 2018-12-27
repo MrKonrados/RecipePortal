@@ -4,6 +4,7 @@
     {
         <div class=" input-group">
             @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+            @Html.HiddenFor(i => i.Id)
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default js-delete">remove</button>
             </span>

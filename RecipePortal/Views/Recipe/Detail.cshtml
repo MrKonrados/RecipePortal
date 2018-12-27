@@ -40,6 +40,9 @@
         @Html.Partial("_IngredientList", Model.Ingredients)
         <h2>Directions</h2><hr />
         @Model.Directions
+        <br />
+        <br />
+        @Html.ActionLink("Delete", "Delete", new { Model.Id }, new { @class = "btn btn-danger" })
     </div>
     <div class="col-md-4">
         <h2>Recent recipes</h2><hr />
