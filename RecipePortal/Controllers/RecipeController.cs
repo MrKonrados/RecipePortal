@@ -83,12 +83,17 @@ namespace RecipePortal.Controllers
         {
             var recipe = _context.Recipes
                 .Include(x => x.Ingredients)
+                .Include(rat => rat.Ratings)
                 .SingleOrDefault<Recipe>(r => r.Id == id);
 
             if (recipe == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.AverageRating = (from rating in recipe.Ratings
+                                     select rating.Score)
+                                    .Average();
 
             var viewModel = new RecipeViewModel
             {
