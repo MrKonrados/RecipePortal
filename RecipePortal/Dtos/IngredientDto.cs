@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RecipePortal.Models
+namespace RecipePortal.Dtos
 {
-    public class Ingredient
+    public class IngredientDto
     {
         public int Id { get; set; }
 
@@ -10,5 +10,6 @@ namespace RecipePortal.Models
         public string Name { get; set; }
 
         public int? RecipeId { get; set; }
+
     }
 }

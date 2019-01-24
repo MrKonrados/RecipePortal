@@ -1,10 +1,9 @@
-﻿using RecipePortal.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace RecipePortal.ViewModels
+namespace RecipePortal.Dtos
 {
-    public class RecipeViewModel
+    public class RecipeDto
     {
         public int Id { get; set; }
 
@@ -18,8 +17,13 @@ namespace RecipePortal.ViewModels
         [Required]
         public string Directions { get; set; }
 
-        public ICollection<Ingredient> Ingredients { get; set; }
-
+        [StringLength(255)]
         public string ImageFilename { get; set; }
+
+        [Required]
+        public virtual List<IngredientDto> Ingredients { get; set; }
+
+        public virtual ICollection<RatingDto> Ratings { get; set; }
+
     }
 }

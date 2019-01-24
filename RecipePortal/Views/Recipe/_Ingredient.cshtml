@@ -1,10 +1,11 @@
-﻿@model RecipePortal.Models.Ingredient
+﻿@model RecipePortal.Dtos.IngredientDto
 <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "") js-ingredient">
     @using (Html.BeginCollectionItem("ingredients"))
     {
         <div class=" input-group">
             @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
             @Html.HiddenFor(i => i.Id)
+            @Html.HiddenFor(i => i.RecipeId)
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default js-delete">remove</button>
             </span>

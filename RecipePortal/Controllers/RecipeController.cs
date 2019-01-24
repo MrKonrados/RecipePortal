@@ -1,9 +1,11 @@
-﻿using RecipePortal.Models;
-using RecipePortal.ViewModels;
+﻿using AutoMapper;
+using RecipePortal.Dtos;
+using RecipePortal.Models;
 using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RecipePortal.Controllers
@@ -11,7 +13,6 @@ namespace RecipePortal.Controllers
     public class RecipeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public RecipeController()
         {
             _context = new ApplicationDbContext();
@@ -27,55 +28,83 @@ namespace RecipePortal.Controllers
         // GET: Recipe
         public ActionResult Create()
         {
-            var recipe = new RecipeCreateViewModel();
-            return View(recipe);
+            return View("RecipeForm", new RecipeDto());
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RecipeCreateViewModel viewModel)
+        public ActionResult RecipeForm(RecipeDto dto, HttpPostedFileBase image)
         {
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return View();
             }
 
-            var recipe = new Recipe()
+            if (image != null)
             {
-                Name = viewModel.Name,
-                AboutDish = viewModel.AboutDish,
-                Ingredients = viewModel.Ingredients,
-                Directions = viewModel.Directions
-            };
-
-            if (viewModel.File != null)
-            {
-                var file = viewModel.File;
                 var uploadDir = GlobalVariables.UploadDir;
-                var fin = System.IO.Path.GetFileName(file.FileName);
+                var fin = System.IO.Path.GetFileName(image.FileName);
                 var path = System.IO.Path.Combine(Server.MapPath(uploadDir), fin);
 
                 try
                 {
-                    file.SaveAs(path);
+                    image.SaveAs(path);
                 }
                 catch (Exception e)
                 {
                     //todo: Pass error massage to view
                     return Content(e.ToString());
                 }
-                recipe.ImageFilename = fin;
+
+                dto.ImageFilename = fin;
             }
 
-            _context.Recipes.Add(recipe);
-            _context.SaveChanges();
+            var orgRecipe = _context.Recipes
+                .Where(r => r.Id == dto.Id)
+                .Include(i => i.Ingredients)
+                .SingleOrDefault();
 
+
+            if (orgRecipe == null)
+            {
+                var newRecipe = Mapper.Map<Recipe>(dto);
+                _context.Recipes.Add(newRecipe);
+            }
+            else
+            {
+                foreach (var ingredient in dto.Ingredients)
+                {
+                    var orgIng = orgRecipe.Ingredients
+                        .SingleOrDefault(i => i.Id == ingredient.Id && i.Id != 0);
+                    if (orgIng != null)
+                    {
+                        var itemEntry = _context.Entry(orgIng);
+                        itemEntry.CurrentValues.SetValues(ingredient);
+                    }
+                    else
+                    {
+                        ingredient.Id = 0;
+                        var newIng = Mapper.Map<Ingredient>(ingredient);
+                        orgRecipe.Ingredients.Add(newIng);
+                    }
+                }
+
+                var orgIngredients = orgRecipe.Ingredients.Where(i => i.Id != 0).ToList();
+                foreach (var orgIng in orgIngredients)
+                {
+                    if (dto.Ingredients.All(i => i.Id != orgIng.Id))
+                        _context.Ingredients.Remove(orgIng);
+                }
+            }
+
+            _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult AddIngredient()
         {
-            var ingredient = new Ingredient();
+            var ingredient = new IngredientDto();
             return PartialView("_Ingredient", ingredient);
         }
 
@@ -99,17 +128,7 @@ namespace RecipePortal.Controllers
                                 .Average();
 
             @ViewBag.AverageRating = decimal.Round((decimal)averageRating, 2);
-
-            var viewModel = new RecipeViewModel
-            {
-                Id = recipe.Id,
-                Directions = recipe.AboutDish,
-                Name = recipe.Name,
-                AboutDish = recipe.AboutDish,
-                Ingredients = recipe.Ingredients,
-                ImageFilename = recipe.ImageFilename
-            };
-            return View(viewModel);
+            return View(recipe);
         }
 
         public ActionResult Edit(int id = 0)
@@ -117,99 +136,15 @@ namespace RecipePortal.Controllers
             var recipe = _context.Recipes
                 .Include(x => x.Ingredients)
                 .SingleOrDefault(r => r.Id == id);
-
             if (recipe == null)
             {
                 return HttpNotFound();
             }
 
+            recipe.ImageFilename = null;
 
-            var viewModel = new RecipeEditViewModel
-            {
-                Id = recipe.Id,
-                Directions = recipe.AboutDish,
-                Name = recipe.Name,
-                AboutDish = recipe.AboutDish,
-                Ingredients = recipe.Ingredients,
-                File = null
-            };
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(RecipeEditViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel);
-            }
-
-            var existingRecipe = _context.Recipes
-                .Where(r => r.Id == viewModel.Id)
-                .Include(r => r.Ingredients)
-                .SingleOrDefault();
-
-            if (existingRecipe == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (viewModel.File != null)
-            {
-                var file = viewModel.File;
-                var uploadDir = GlobalVariables.UploadDir;
-                var fin = System.IO.Path.GetFileName(file.FileName);
-                var path = System.IO.Path.Combine(Server.MapPath(uploadDir), fin);
-
-                try
-                {
-                    file.SaveAs(path);
-                }
-                catch (Exception e)
-                {
-                    //todo: Pass error massage to view
-                    return Content(e.ToString());
-                }
-                viewModel.ImageFilename = fin;
-            }
-
-
-            if (existingRecipe != null)
-            {
-                _context.Entry(existingRecipe).CurrentValues.SetValues(viewModel);
-                foreach (var existingIngredient in existingRecipe.Ingredients.ToList())
-                {
-                    if (!viewModel.Ingredients.Any(r => r.Id == existingIngredient.Id))
-                        _context.Ingredients.Remove(existingIngredient);
-                }
-
-                foreach (var vmIngredient in viewModel.Ingredients)
-                {
-                    vmIngredient.RecipeId = viewModel.Id;
-                    var existingIngredient = existingRecipe.Ingredients
-                        .Where(r => r.Id == vmIngredient.Id)
-                        .SingleOrDefault();
-
-                    if (existingIngredient != null)
-                    {
-                        _context.Entry(existingIngredient)
-                            .CurrentValues
-                            .SetValues(vmIngredient);
-                    }
-                    else
-                    {
-                        var newIngredient = new Ingredient
-                        {
-                            RecipeId = vmIngredient.RecipeId,
-                            Name = vmIngredient.Name,
-                        };
-                        existingRecipe.Ingredients.Add(newIngredient);
-                    }
-                }
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Index");
+            var dto = Mapper.Map<RecipeDto>(recipe);
+            return View("RecipeForm", dto);
         }
 
         // GET: Recipe/Delete/5
@@ -248,17 +183,20 @@ namespace RecipePortal.Controllers
         public ActionResult RateRecipe(string star, string recipeId)
         {
             var rating_arr = star.Split('-');
+            var id = Int32.Parse(recipeId);
 
             var newRating = new Rating()
             {
-                RecipeId = Int32.Parse(recipeId),
+                RecipeId = id,
                 Score = Int32.Parse(rating_arr[1])
             };
 
             _context.Ratings.Add(newRating);
             _context.SaveChanges();
-
-            return View("Detail");
+            var vm = _context.Recipes
+                            .Include(i => i.Ingredients)
+                            .SingleOrDefault(r => r.Id == id);
+            return View("Detail", vm);
         }
     }
 }

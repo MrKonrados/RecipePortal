@@ -1,11 +1,13 @@
-﻿@model RecipePortal.ViewModels.RecipeCreateViewModel
+﻿@using RecipePortal.Dtos
+@model RecipePortal.Dtos.RecipeDto
 <h2>New Recipe</h2>
 <div class="row">
     <div class="col-sm-4">
-        @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("RecipeForm", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "Please check errors", new { @class = "alert alert-danger", @role = "alert" })
+            @Html.HiddenFor(r => r.Id)
 
             <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
                 @Html.LabelFor(r => r.Name, new { @class = "control-label" })
@@ -21,8 +23,9 @@
 
             <div class="form-group @(!ViewData.ModelState.IsValid ? "has-error" : "")">
                 @Html.Label("Upload File", new { @class = "control-label" })
-                <input type="file" name="File" required />
-                @Html.ValidationMessageFor(r => r.File, "", new { @class = "text-danger" })
+                <input type="file" name="image" required />
+                @* @Html.ValidationMessage(, new { @class = "text-danger" }) *@
+                @Html.ValidationMessage("image", "", new { @class = "text-danger" })
             </div>
 
 
@@ -37,7 +40,7 @@
                 }
                 else
                 {
-                    @Html.Partial("_Ingredient", new RecipePortal.Models.Ingredient())
+                    @Html.Partial("_Ingredient", new IngredientDto())
                 }
             </div>
 

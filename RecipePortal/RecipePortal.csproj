@@ -45,6 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Collection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=e57c3f0a3d6646db, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Collection.5.0.0\lib\net461\AutoMapper.Collection.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Collection.EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=e57c3f0a3d6646db, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Collection.EntityFramework.5.0.0\lib\net461\AutoMapper.Collection.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Extensions.ExpressionMapping, Version=2.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Extensions.ExpressionMapping.2.0.0\lib\net461\AutoMapper.Extensions.ExpressionMapping.dll</HintPath>
+    </Reference>
     <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
     </Reference>
@@ -55,6 +67,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -171,6 +186,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutomapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -180,6 +196,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="Dtos\IngredientDto.cs" />
+    <Compile Include="Dtos\RatingDto.cs" />
+    <Compile Include="Dtos\RecipeDto.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.cs" />
     <Compile Include="Migrations\201811291846406_ChangeImagePathToImageFilenameInRecipeModel.Designer.cs">
@@ -213,11 +232,12 @@
     <Compile Include="Migrations\201812261807223_CreateRatingModel.Designer.cs">
       <DependentUpon>201812261807223_CreateRatingModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901021114296_SetRecipeIdIngredientAsNullable.cs" />
+    <Compile Include="Migrations\201901021114296_SetRecipeIdIngredientAsNullable.Designer.cs">
+      <DependentUpon>201901021114296_SetRecipeIdIngredientAsNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Rating.cs" />
-    <Compile Include="ViewModels\RecipeCreateViewModel.cs" />
-    <Compile Include="ViewModels\RecipeEditViewModel.cs" />
-    <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,7 +329,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Recipe\Create.cshtml" />
+    <Content Include="Views\Recipe\RecipeForm.cshtml" />
     <Content Include="Views\Recipe\Index.cshtml" />
     <Content Include="Views\Recipe\_Ingredient.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
@@ -365,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812261807223_CreateRatingModel.resx">
       <DependentUpon>201812261807223_CreateRatingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901021114296_SetRecipeIdIngredientAsNullable.resx">
+      <DependentUpon>201901021114296_SetRecipeIdIngredientAsNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

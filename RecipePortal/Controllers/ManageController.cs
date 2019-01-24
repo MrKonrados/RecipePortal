@@ -52,7 +52,7 @@ namespace RecipePortal.Controllers
         }
 
         //
-        // GET: /Manage/Create
+        // GET: /Manage/RecipeForm
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
